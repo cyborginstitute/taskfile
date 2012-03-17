@@ -1,0 +1,106 @@
+######################################################################
+#
+# tychoish tasklist makefile - (PROJECTS)
+#
+######################################################################
+
+MAKEFLAGS += -j4
+
+#
+# Location, output, and control.
+#
+
+SOURCE = ~/projects
+
+CACHE = $(SOURCE)/.tasklist-build
+NAME = projects
+EXTENSION = rst
+
+OUTPUT_DIR = ~/wiki
+OUTPUT_FILE_NAME = todo
+OUTPUT = $(OUTPUT_DIR)/$(OUTPUT_FILE_NAME)/$(NAME).mdwn
+
+EXTRA_OUTPUT = $(OUTPUT_DIR)/$(NAME).mdwn
+
+#
+# Modify these variables to control the search patterns and filtered outputs.
+#
+
+KEYWORDS = ^TODO|^DEV|^FIXME|^WRITE|^EDIT|^FUTURE|^FROZEN
+
+#
+# Variables and functions you won't have to change or modify
+#
+
+OUTPUT_FILE_NAME ?= todo
+OUTPUT ?= $(SOURCE)/$(OUTPUT_FILE_NAME).$(EXTENSION)
+TMPL_DIR ?= $(OUTPUT_DIR)/$(OUTPUT_FILE_NAME)
+EXTRA_OUTPUT_DIR ?= $(SOURCE)/$(OUTPUT_FILE_NAME)
+
+SOURCES := $(shell find $(SOURCE) -name "*.$(EXTENSION)" -not \( -name "$(OUTPUT_FILE_NAME)*" \) | grep -v "$(OUTPUT_FILE_NAME)")
+SOURCEDIR := $(shell find $(SOURCE) -type d -not \( -name ".*" -prune \) -not \( -name "$(OUTPUT_FILE_NAME)" \))
+
+CACHE_DIRS = $(subst $(SOURCE),$(CACHE),$(SOURCEDIR))
+CACHE_INDEX_FILES = $(subst $(SOURCE),$(CACHE),$(subst .$(EXTENSION),.$(OUTPUT_FILE_NAME),$(wildcard $(SOURCES)/*.$(EXTENSION))))
+CLEAN_UP_DELETED_FILES := for item in `find $(CACHE)/ -name "*$(OUTPUT_FILE_NAME)"` ; do temp=`echo $$item | sed -e "s/$(OUTPUT_FILE_NAME)/$(EXTENSION)/" -e "s@$(CACHE)@$(SOURCE)@"` ; if [[ ! -f "$$temp" ]] ; then echo "rm $$item" ; rm $$item ; fi ; done
+
+.DEFAULT_GOAL := tasklist
+.PHONY: clean-output clean-cache clean-all clean help todo test
+
+#
+# Helpful output interface targets for testing and CLI use.
+#
+
+help:
+        @echo "Ikiwiki Tasklist Compilation Interface"
+        @echo "   "
+        @echo "Targets:"
+        @echo "   tasklist      -- (default) built's tasklist in '$(OUTPUT)'."
+        @echo "   todo          -- prints the '$(OUTPUT)' list."
+        @echo "   setup         -- creates some required directories first run."
+        @echo "Cleaning:"
+        @echo "   clean         -- remove all output files and forces a minor rebuild (also clean-output)"
+        @echo "   clean-cache   -- removes the '$(CACHE)' folder and forces a full rebuild"
+        @echo "   clean-all     -- runs both 'clean-cache' and 'clean-output'"
+
+todo:$(OUTPUT)
+        cat $(OUTPUT)
+
+#
+# The actual tasklist building targets and functions. only run "make tasklist"
+#
+
+tasklist: $(SOURCES) $(CACHE)/.setup $(CACHE_INDEX_FILES) $(CACHE)/$(OUTPUT_FILE_NAME).list $(EXTRA_OUTPUT) $(OUTPUT)
+setup:
+        make $(CACHE)/.setup
+$(CACHE)/.setup:
+        mkdir -p $(CACHE) $(CACHE_DIRS)
+        touch $(TMPL_DIR)/tmpl.$(NAME) $(CACHE)/.setup
+$(CACHE)/%.$(OUTPUT_FILE_NAME):$(SOURCE)/%.$(EXTENSION)
+	@echo "Caching: $<"
+	@grep -E "($(KEYWORDS)).*" $< >$@ || exit 0
+$(CACHE)/$(OUTPUT_FILE_NAME).list:$(CACHE_INDEX_FILES)
+        rm -f $@
+        grep "" $(CACHE)/* -R >$@
+        sed -i -r -e "s@^$(CACHE)/(.*).$(OUTPUT_FILE_NAME):(.*)@- \2: [[\1]]@g" -e "s@\[$(CACHE)\/@[@g" $@
+$(EXTRA_OUTPUT):$(CACHE)/$(OUTPUT_FILE_NAME).list
+        sed -r -e "s/^- //" -e "s@source/@@" -e "s@docs/@@" $< >> $@
+$(OUTPUT):$(CACHE)/$(OUTPUT_FILE_NAME).list
+        cat $(TMPL_DIR)/tmpl.$(NAME) $< >$@
+
+#
+# Cleanup and removal targets.
+#
+
+clean:
+        $(CLEAN_UP_DELETED_FILES)
+clean-output:
+        rm -f $(OUTPUT) $(FUTURE_OUTPUT) $(WORK_OUTPUT) $(EXTRA_OUTPUT)
+clean-dirty:
+        rm -rf $(CACHE)
+clean-cache:
+        rm -rf $(CACHE)
+        make -s setup
+clean-all:
+        rm -rf $(CACHE)
+        make -s setup

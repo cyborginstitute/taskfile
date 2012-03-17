@@ -10,11 +10,13 @@ This document provides a detailed account of the internal operation of
 the Taskfile makefile. Use this document as a reference to the higher
 level discussion of :doc:`Taskfile customization <configuration>`.
 
-Synopsis
---------
-
 Variables
 ---------
+
+.. variable:: MAKEFLAGS
+
+   Defines the default flags for :command:`make`. For Taskfile, this
+   is "``-j4``"
 
 Location and Output Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -539,13 +541,12 @@ core output list.
    :var:`EXTENSION`, and that all files in the cache have a distinct
    extension.
 
-   
-   ... note:: 
-   
-       This target suppresses normal output and instead prints
-       "``Caching:`` :var:`$(CACHE)/.$(EXTENSION) <CACHE>`" 
 
-The output of this operation 
+   ... note::
+
+       This target suppresses normal output and instead prints
+       "``Caching:`` :var:`$(CACHE)/.$(EXTENSION) <CACHE>`".
+
 .. target:: $(CACHE)/$(OUTPUT_FILENAME).list
 
    This target depends on :var:`CACHE_INDEX_FILES`, which holds a list
