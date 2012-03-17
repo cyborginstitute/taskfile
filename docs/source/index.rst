@@ -17,6 +17,9 @@ Contents
    configuration
    internals
    contribute
+   glossary
+
+- :ref:`genindex`
 
 Resources
 ---------

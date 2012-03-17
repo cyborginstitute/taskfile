@@ -2,6 +2,8 @@
 Working with Taskfile
 =====================
 
+EDIT file
+
 Synopsis
 --------
 
@@ -14,8 +16,6 @@ integrate Taskfile into practical workflows.
 
 Patterns
 --------
-
-TODO fix links in this section.
 
 Once you've :doc:`configured <configuration>` Taskfile, running the
 ``make`` command in the directory where the makefile lives is usually
@@ -177,11 +177,11 @@ Internal Approach
 -----------------
 
 Taskfile operates by scanning a directory tree for files that contain
-TODO keywords and copying *only* those TODO lines to a "cache." Todo
-lists are then built from this mirroed "cache tree." Using GNU Make's
-dependency checking, when running Taskfile, files in the cache (and
-the todo lists themselves) are only reread or rescanned when the TODO
-items change.
+or begin with one of the TODO keywords and copying *only* those TODO
+lines to a "cache." Todo lists are then built from this mirroed "cache
+tree." Using GNU Make's dependency checking, when running Taskfile,
+files in the cache (and the todo lists themselves) are only reread or
+rescanned when the TODO items change.
 
 Depending on the number of files and the number of lines in the file,
 the initial creation of a crash can take a number of seconds; however,

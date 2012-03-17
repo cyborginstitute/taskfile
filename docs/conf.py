@@ -3,12 +3,13 @@
 # This file is execfile()d with the current directory set to its containing dir.
 
 import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".ext")))
 
 # -- General configuration -----------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.todo']
+extensions = ['sphinx.ext.todo', "make_domain"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']
@@ -32,6 +33,7 @@ exclude_patterns = []
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
+add_function_parentheses = False
 
 # -- Options for HTML output ---------------------------------------------------
 
