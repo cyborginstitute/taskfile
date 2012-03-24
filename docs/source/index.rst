@@ -13,9 +13,9 @@ Contents
    :maxdepth: 1
 
    operation
-   usage
    configuration
    internals
+   emacs
    contribute
    glossary
 
@@ -48,7 +48,7 @@ advantages that this approach provides:
   - Sphinx
   - Git
   - File systems and text files.
-  - Emacs' markdown mode, occur, and deft.Eli
+  - Emacs' markdown mode, occur, and deft.
   - Pretty much anything else you want.
 
 - Using GNU make, makes it possible for the aggregation operation to

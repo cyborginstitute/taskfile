@@ -1,0 +1,177 @@
+===============================
+Integrating Taskfile with Emacs
+===============================
+
+.. default-domain:: emacs
+
+This document provides an overview of the :file:`taskfile.el` included
+in the root of this repository. The organization of this file mirrors
+the organization of :file:`taskfile.el`
+
+.. seelaso: ":ref:`Emacs Taskfile Integration <operation-integration-emacs>`"
+
+Taskfile
+--------
+
+Variables
+~~~~~~~~~
+
+.. variable:: taskfile-location
+
+   Defines the full path to your main taskfile. :func:`taskfile-open`
+   uses this variable.
+
+.. variable:: taksfile-flow-location
+
+   Defines the full path to the :term:`flow`
+   file. :func:`taskfile-flow` uses this variable.
+
+.. variable:: taskfile-compile-command
+
+   Defines the make invocation used to rebuild your
+   taskfile. :func:`taskfile-compile` uses this variable.
+
+Functions
+~~~~~~~~~
+
+.. function:: taskfile-mark-done
+
+   This interactive function takes a standard Taskfile task entry (in
+   the source format) and transforms it into a Markdown list-entry
+   prefixed by the string "``DONE``". For example, the
+   :func:`taskfile-mark-done` takes following task:
+
+   .. code-block:: rst
+
+        TODO work on Taskfile Project
+
+   and transforms it into:
+
+   .. code-block:: rst
+
+        - DONE work on Taskfile Project
+
+.. function:: taskfile-open
+
+   Opens the buffer that holds the default taskfile. Define the full
+   path to your taskfile in :var:`taskfile-location`.
+
+   :func:`taskfile-open` opens the task list in read-only mode, to
+   prevent unintended editing, and enables `Visual Line Mode`_
+
+   .. _`Visual Line Mode`: http://www.emacswiki.org/emacs/VisualLineMode
+
+.. function:: taskfile-flow
+
+   Opens the buffer that holds the :term:`flow` file. Define the full
+   path to this file in :var:`taskfile-flow-location`.
+
+.. function:: taskfile-compile
+
+   Runs Emacs' "``compile``" command using the ``make`` invocation
+   defined in :var:`taskfile-compile-command`. Use this to open
+   ``compile-mode`` [#compile-mode]_
+
+   .. [#compile-mode] http://emacswiki.org/emacs/CompilationMode
+
+Deft Mode
+---------
+
+Deft_ is a note-taking and notes organization mode for emacs. If you
+do not have an existing note taking solution, you may find deft
+useful. The :file:`taskfile.el` provides a few additional functions on
+top of deft that you may find helpful either in conjunction with deft,
+or on their own.
+
+.. _Deft: http://jblevins.org/projects/deft/
+
+Variables
+~~~~~~~~~
+
+The following variables define aspects of deft operation.
+
+.. variable:: deft-extension
+
+   Sets the file extension that Deft uses for its files. Typically
+   this should reflect the value of :make:var:`EXTENSION`.
+
+.. variable:: deft-directory
+
+   Sets the directory in that Deft looks for files. Typically this
+   should either be the value of :make:var:`SOURCE` or a sub-directory
+   of the directory defined by :make:var:`SOURCE`.
+
+.. variable:: deft-text-mode
+
+   Specifies a major-mode to use as the default mode for. Typically
+   this should be ``markdown-mode`` or ``rst-mode`` but any available
+   major-mode in your emacs installation, preferably one that
+   Taskfile's regular expressions can parse, will work.
+
+.. variable:: deft-auto-save-interval
+
+   Specifies the interval in seconds that deft buffers will
+   automatically write their contents to disk. Typically the best
+   value for this setting is ``nil`` to prevent this behavior
+   entirely.
+
+Functions
+~~~~~~~~~
+
+.. function:: deft-file-make-slug
+
+   This is a helper function used by :func:`tychoish-deft-create` to
+   generate a reasonable lower-case and hyphen separated file name.
+
+.. function:: tychoish-deft-create
+
+   Prompts the user to enter the name of a new file, with a filneame
+   computed from the user input using :func:`deft-file-make-slug`.
+
+Keybindings
+-----------
+
+.. keybinding:: C-c d o
+
+   Calls ``deft``.
+
+   Mnemonic: "*deft open.*"
+
+.. keybinding:: C-c d n
+
+   Calls :func:`tychoish-deft-create`.
+
+   Mnemonic: "*deft new.*"
+
+.. keybinding:: C-c d d
+
+   Opens the :var:`deft-directory` in a ``dired`` buffer.
+
+   Mnemonic: "*deft directory.*"
+
+.. keybinding:: C-c t t
+
+   Calls :func:`taskfile-open`.
+
+   Mnemonic: "*taskfile tasks.*"
+
+.. keybinding:: C-c t c
+
+   Calls :func:`taskfile-compile`.
+
+   Mnemonic: "*taskfile compile.*"
+
+.. keybinding:: C-c t f
+
+   Calls :func:`taskfile-flow`
+
+   Mnemonic: "*taskfile flow.*"
+
+Occur Customizations
+--------------------
+
+At the end of :file:`taskfile.el` there are a number of modifications
+to occur culled from the `Emacs Wiki Occur Page`_ that may make occur
+more easy for you to use.
+
+.. _`Emacs Wiki Occur Page`: http://www.emacswiki.org/emacs/OccurMode

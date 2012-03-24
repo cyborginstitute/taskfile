@@ -2,7 +2,7 @@
 Working with Taskfile
 =====================
 
-EDIT file
+ EDIT file
 
 Synopsis
 --------
@@ -23,9 +23,10 @@ all you need to do. The makefile provides a "``make todo``" operation
 that prints the task list, or you can view the output using an
 interface like `Geektool <geektool>`_, `Ikiwki <http://ikiwiki.info>`_
 or preferred text editor. Ikiwiki, and `Emacs'
-<http://gnu.org/s/emacs>`_ `Markdown Mode <markdown>`_ provide some
-linkingf ability that facilitates "moving backwards" from the task on
-the "todo" output to the embeded task in a file.
+<http://gnu.org/s/emacs>`_ `Markdown Mode
+<http://jblevins.org/projects/markdown-mode/>`_ provide some linkingf
+ability that facilitates "moving backwards" from the task on the
+"todo" output to the embeded task in a file.
 
 There are two major approaches to organizing a Taskfile system. The
 first is to just work in files and insert task items that Taskfile
@@ -123,6 +124,8 @@ textfiles are in.
 .. [#grep] Unsurprisingly, perhaps, Taskfile uses "``grep -E``" to
    find and filter tasks from the source files.
 
+.. operation-integration-emacs:
+
 Integration
 ~~~~~~~~~~~
 
@@ -141,27 +144,28 @@ Ikiwiki can parse and ends up in a location that Ikiwiki will build.
 If you use Emacs, consider the following modes and functions that
 might be useful for interacting with Taskfile:
 
-- `Markdown Mode <>`_
+- `Markdown Mode <http://jblevins.org/projects/markdown-mode/>`_
 
   The latest versions of markdown mode, include an automatic
   wiki-link following feature that allows you to travel from the
   current file to the linked file within the file by overloading the
   "Enter" key.
 
-- `Occur <>`_
+- `Occur Mode <http://emacswiki.org/emacs/OccurMode>`_
 
   Occur ships with recent versions of Emacs and searches and indexes
   textfiles. Use ``occur`` within the source files, to find instances
   of keywords within a file. Occur cites line numbers and makes it
   easy to jump to specific line numbers.
 
-- `Auto-Revert Mode <>`_ or `Revbufs <>`_
+- `Auto-Revert Mode <http://www.emacswiki.org/emacs/AutoRevertMode>`_
+  or `Revbufs <http://www.neilvandyke.org/revbufs/>`_
 
   Because Taskfile generates the todo files outside of Emacs, use a system
   like auto revert mode or ``revbufs`` to get emacs to refresh the
   buffer from the disk when you update.
 
-- `Compile Mode <>`_
+- `Compile Mode <http://www.gnu.org/software/emacs/manual/html_node/emacs/Compilation-Mode.html>`_
 
   Emacs includes compile mode, which provides an easy method to run,
   rerun and monitor make and make-like processes within emacs.
@@ -172,6 +176,8 @@ might be useful for interacting with Taskfile:
    different interfaces and names. If you use another text editor,
    consider :doc:`contributing <contribute>` documentation to Taskfile
    to explain these functions and possible configurations.
+
+.. seealso: ":doc:`emacs`."
 
 Internal Approach
 -----------------

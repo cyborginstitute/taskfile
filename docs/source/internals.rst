@@ -31,7 +31,10 @@ Location and Output Variables
 .. variable:: CACHE
 
    The directory where Taskfile stores it's cached extraction of task
-   items from the ``SOURCE`` files.
+   items from the ``SOURCE`` files. Ensure that the Taskfile cache is
+   not tracked in version control. For example, consider using
+   "``.git/taskfile-cache``" otherwise place the :var:`CACHE` path in
+   your ``.gitignore``, or other similar exclusion file.
 
 .. variable:: OUTPUT_FILE_NAME
 
@@ -121,8 +124,8 @@ Patterns and Filters
       The default distribution of tasklist has no enabled targets that
       build the :var:`FUTURE_FILTER` task lists. If you want to build
       a future task list, you will need to un-comment these
-      sections. See the ":doc:`configuration`" and ":doc:`usage`"
-      tutorials for more information on this process.
+      sections. See the ":doc:`configuration`" document for more
+      information on this process.
 
 .. variable:: FUTURE_KEYWORDS
 
@@ -133,8 +136,8 @@ Patterns and Filters
 
       There are no active targets that build the "future" versions of
       the task list, as future task lists require some measure of
-      customization. See the ":doc:`configuration`" and ":doc:`usage`"
-      tutorials for more information on this process.
+      customization. See the ":doc:`configuration`" document for more
+      information on this process.
 
       However, task items that use one of these keywords are not
       included in the primary tasklist.
@@ -158,9 +161,8 @@ Patterns and Filters
 
    .. seealso:: :target:`$(WORK_OUTPUT)`
 
-      Additionally, consider the ":doc:`configuration`" and
-      ":doc:`usage`" tutorials for instructions regarding configuring
-      the work tasklists.
+      Additionally, consider the ":doc:`configuration`" document for
+      instructions regarding configuring the work tasklists.
 
 
 Project Variables
@@ -194,8 +196,8 @@ Project Variables
 
       There are no active targets that build the "future" versions of
       the task list, as future task lists require some measure of
-      customization. See the ":doc:`configuration`" and ":doc:`usage`"
-      tutorials for more information on this process.
+      customization. See the ":doc:`configuration`" document for more
+      information on this process.
 
 .. variable:: WORK_OUTPUT
 
@@ -227,8 +229,8 @@ Project Variables
 
       There are no active targets that build the "future" versions of
       the task list, as future task lists require some measure of
-      customization. See the ":doc:`configuration`" and ":doc:`usage`"
-      tutorials for more information on this process.
+      customization. See the ":doc:`configuration`" document for more
+      information on this process.
 
 .. variable:: EXTRA_OUTPUT_DIR
 
@@ -449,14 +451,14 @@ Meta Targets
 These targets provide dependency groupings for task list to support
 basic operation and configuration, but do not build
 
-.. target:: tasklist
+.. target:: all
 
    Provides a single interface to build or rebuild all of the Tasklist
    output files and their dependencies.
 
    This is the default target for the Taskfile makefile.
 
-   .. seealso:: :target:`tasklist` depends on the following targets:
+   .. seealso:: :target:`all` depends on the following targets:
 
       - :target:`$(SOURCES)`
       - :target:`$(CACHE)/.setup`
