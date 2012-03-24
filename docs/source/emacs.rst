@@ -2,6 +2,8 @@
 Integrating Taskfile with Emacs
 ===============================
 
+EDIT file
+
 .. default-domain:: emacs
 
 This document provides an overview of the :file:`taskfile.el` included
