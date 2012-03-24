@@ -18,6 +18,15 @@ or would like me to pull from another repository changes back into
 "maineline." Feel free to suggest changes to either the code or the
 documentation.
 
+Contrib
+-------
+
+The ``contrib/`` directory in the source tree is for enhancements and
+extensions to Taskfile. While the core makefiles are (and should be)
+basic and unadorned for easy use, customization, and compatibility,
+all submissions to ``contrib/`` are totally appropriate no matter how
+specialized.
+
 Bugs/Issues
 -----------
 
