@@ -70,8 +70,7 @@
 (global-set-key (kbd "C-c d n") 'tychoish-deft-create)
 (global-set-key (kbd "C-c d d") (lambda ()
                                    (interactive)
-                                   (find-file "/home/tychoish/assemblage/bwo/")))
-
+                                   (find-file deft-directory)))
 (global-set-key (kbd "C-c t d") 'taskfile-mark-done)
 (global-set-key (kbd "C-c t t") 'taskfile-open)
 (global-set-key (kbd "C-c t c") 'taskfile-compile)
