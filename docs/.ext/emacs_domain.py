@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    Make Domain for Sphinx
+    Emacs Domain for Sphinx
     ~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Based on the default JavaScript domain distributed with Sphinx.
@@ -8,7 +8,7 @@
     :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
     :license: BSD, see LICENSE for details.
 
-    Additional work to adapt for Make purposes done by Cyborg Institute,
+    Additional work to adapt for Emacs purposes done by Cyborg Institute,
     (Sam Kleinman, et al.)
 """
 
@@ -21,9 +21,9 @@ from sphinx.domains.python import _pseudo_parse_arglist
 from sphinx.util.nodes import make_refnode
 from sphinx.util.docfields import Field, GroupedField, TypedField
 
-class MakeObject(ObjectDescription):
+class EmacsObject(ObjectDescription):
     """
-    Description of a Make object.
+    Description of a Emacs object.
     """
     #: If set to ``True`` this object is callable and a `desc_parameterlist` is
     #: added
@@ -39,7 +39,7 @@ class MakeObject(ObjectDescription):
         nameprefix = None
         name = prefix
 
-        objectname = self.env.temp_data.get('make:object')
+        objectname = self.env.temp_data.get('emacs:object')
         if nameprefix:
             if objectname:
                 # someone documenting the method of an attribute of the current
@@ -71,14 +71,14 @@ class MakeObject(ObjectDescription):
 
     def add_target_and_index(self, name_obj, sig, signode):
         objectname = self.options.get(
-            'object', self.env.temp_data.get('make:object'))
+            'object', self.env.temp_data.get('emacs:object'))
         fullname = name_obj[0]
         if fullname not in self.state.document.ids:
             signode['names'].append(fullname)
             signode['ids'].append(fullname.replace('$', '_S_'))
             signode['first'] = not self.names
             self.state.document.note_explicit_target(signode)
-            objects = self.env.domaindata['make']['objects']
+            objects = self.env.domaindata['emacs']['objects']
             # if fullname in objects:
             #     self.state_machine.reporter.warning(
             #         'duplicate object description of %s, ' % fullname +
@@ -95,23 +95,23 @@ class MakeObject(ObjectDescription):
 
     def get_index_text(self, objectname, name_obj):
         name, obj = name_obj
-        if self.objtype == 'variable':
-            return _('%s (make variable)') % name
-        elif self.objtype == 'target':
-            return _('%s (make target)') % name
-        elif self.objtype == 'dependency':
-            return _('%s (make dependency)') % name
+        if self.objtype == 'function':
+            return _('%s (emacs function)') % name
+        elif self.objtype == 'keybinding':
+            return _('%s (emacs keybinding)') % name
+        elif self.objtype == 'variable':
+            return _('%s (emacs variable)') % name
         return ''
 
 
-class MakeCallable(MakeObject):
-    """Description of a Make function, method or constructor."""
+class EmacsCallable(EmacsObject):
+    """Description of a Emacs function, method or constructor."""
     has_arguments = False
 
-class MakeXRefRole(XRefRole):
+class EmacsXRefRole(XRefRole):
     def process_link(self, env, refnode, has_explicit_title, title, target):
         # basically what sphinx.domains.python.PyXRefRole does
-        refnode['make:object'] = env.temp_data.get('make:object')
+        refnode['emacs:object'] = env.temp_data.get('emacs:object')
         if not has_explicit_title:
             title = title.lstrip('.')
             target = target.lstrip('~')
@@ -125,27 +125,29 @@ class MakeXRefRole(XRefRole):
             refnode['refspecific'] = True
         return title, target
 
-class MakeDomain(Domain):
-    """Make Documentation domain."""
-    name = 'make'
-    label = 'Make'
-    # if you add a new object type make sure to edit MakeObject.get_index_string
+class EmacsDomain(Domain):
+    """Emacs Documentation domain."""
+    name = 'emacs'
+    label = 'emacs'
+    # if you add a new object type emacs sure to edit EmacsObject.get_index_string
     object_types = {
-        'variable':    ObjType(l_('variable'),   'var'),
-        'target':      ObjType(l_('target'),     'target'),
-        'dependency':  ObjType(l_('dependency'), 'dep'),
+        'keybinding':   ObjType(l_('keybinding'),     'key'),
+        'variable':     ObjType(l_('variable'),       'var'),
+        'function':     ObjType(l_('function'),       'func'),
     }
 
     directives = {
-        'variable':   MakeCallable,
-        'target':     MakeCallable,
-        'dependency': MakeCallable,
+        'keybinding':  EmacsCallable,
+        'variable':    EmacsCallable,
+        'function':    EmacsCallable,
     }
+
     roles = {
-        'var':        MakeXRefRole(),
-        'target':     MakeXRefRole(),
-        'dep':        MakeXRefRole(),
+        'key':         EmacsXRefRole(),
+        'var':         EmacsXRefRole(),
+        'func':        EmacsXRefRole(),
     }
+
     initial_data = {
         'objects': {}, # fullname -> docname, objtype
     }
@@ -169,7 +171,7 @@ class MakeDomain(Domain):
 
     def resolve_xref(self, env, fromdocname, builder, typ, target, node,
                      contnode):
-        objectname = node.get('make:object')
+        objectname = node.get('emacs:object')
         searchorder = node.hasattr('refspecific') and 1 or 0
         name, obj = self.find_obj(env, objectname, target, typ, searchorder)
 
@@ -183,4 +185,4 @@ class MakeDomain(Domain):
             yield refname, refname, type, docname, refname, 1
 
 def setup(app):
-    app.add_domain(MakeDomain)
+    app.add_domain(EmacsDomain)
