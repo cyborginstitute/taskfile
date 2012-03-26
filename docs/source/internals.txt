@@ -10,6 +10,8 @@ This document provides a detailed account of the internal operation of
 the Taskfile makefile. Use this document as a reference to the higher
 level discussion of :doc:`Taskfile customization <configuration>`.
 
+.. _taskfile-variables:
+
 Variables
 ---------
 

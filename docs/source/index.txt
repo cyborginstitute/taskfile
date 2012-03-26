@@ -2,7 +2,7 @@
 Taskfile: A Tasklist Compiler
 =============================
 
-A simple tasklist aggregator build using GNU make and text files to
+A simple tasklist aggregator build using GNU Make and text files to
 support task tracking for a diverse collection of workflows and
 tools.
 
@@ -31,7 +31,7 @@ Resources
 Overview
 --------
 
-Taskfile, using GNU make, compiles a tasklist from one or more
+Taskfile, using GNU Make, compiles a tasklist from one or more
 directories of files, using keywords (i.e. "``TODO``", "``FIXME``",
 "``FROZEN``") to identify tasks and then generate a task
 list. Basically, you focus on your own work, create tasks as you need
@@ -51,7 +51,7 @@ advantages that this approach provides:
   - Emacs' markdown mode, occur, and deft.
   - Pretty much anything else you want.
 
-- Using GNU make, makes it possible for the aggregation operation to
+- Using GNU Make, makes it possible for the aggregation operation to
   be *very* efficient and robust, so you can use it against a large
   collections of files quite efficiently.
 

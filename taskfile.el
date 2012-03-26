@@ -4,11 +4,17 @@
 (setq taskfile-flow-location "/path/to/flow.mdwn")
 (setq taskfile-compile-command "make -k -C /path/to/projects; make -k -C /path/to/notes")
 
+(defun tychoish-mark-task-done ()
+  (interactive)
+  (beginning-of-line)
+  (re-search-forward "^[A-Z]+ \\(-*.*\\) \\(.*\\)$" nil nil)
+    (replace-match "- DONE \\1 \\2"))
+
 (defun taskfile-mark-done ()
   (interactive)
   (beginning-of-line)
-  (re-search-forward "^[A-Z]+\\(-*.*\\) \\(.*\\)$" nil nil)
-    (replace-match "- DONE\\1\\2"))
+  (re-search-forward "^[A-Z]+ \\(-*.*\\) \\(.*\\)$" nil nil)
+    (replace-match "- DONE \\1 \\2"))
 
 (defun taskfile-open ()
   (interactive)

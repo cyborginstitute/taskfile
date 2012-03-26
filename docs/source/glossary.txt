@@ -2,29 +2,52 @@
 Glossary
 ========
 
+.. default-domain:: make
+
+EDIT file
+
 .. glossary::
    :sorted:
 
    tasklist
-      TODO define term
+      The output of the Taskfile build process. The
+      :target:`$(OUTPUT)` generates this file in the default build.
 
    variable
-      TODO define term
+      The values that configure the machine and environmental specific
+      operation of Taskfile. Full documentation is available in the
+      :ref:`variables section of the internals reference <taskfile-variables>`.
 
    target
-      TODO define term
+      In Make terminology a (build) target refers to the output
+      generated according to the process defined by the makefile.
 
    future list
-      TODO define term
+      A :term:`tasklist` filtered from the primary :target:`$(OUTPUT)`
+      according to the :var:`FUTURE_FILTER`. Use to segregate
+      non-actionable tasks that are beyond the current horizon, or in
+      a dependent or frozen state.
 
    work list
-      TODO define term
+      A :term:`tasklist` filtered from the primary :target:`$(OUTPUT)`
+      according to the :var:`WORK_FILTER` (typically based on
+      filename.)  Used to segregate non-actionable tasks or different
+      spheres of work from each other.
 
    aggregation
-      TODO define term
+      The process of consolidating information or data from a wide
+      number of input sources into a single manageable output.
 
    keyword
-      TODO define term
+      A string that you can use to identify a task item in a file that
+      contains other content. Taskfile's default configuration assumes
+      that keywords are strings of all-capital letters at the
+      beginning of a line.
 
    flow
-      TODO define term
+      In Taskfile operation, most source files are normal files that
+      contain content and notes, as well as potential actionable task
+      items. The flow file, is an exception, and operates as a scratch
+      space for ad hoc tasks and actionable items that don't merit
+      their own file, or for situations when you need to capture a
+      large number of notes and tasks at once.
