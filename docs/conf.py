@@ -37,6 +37,9 @@ html_short_title = 'Taskfile'
 #html_logo = None
 #html_favicon = None
 
+git_name = 'cyborg-admin'
+html_theme_options = { 'project': git_name }
+
 html_static_path = ['source/.static']
 html_use_smartypants = True
 
