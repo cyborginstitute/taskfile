@@ -4,8 +4,6 @@ Glossary
 
 .. default-domain:: make
 
-EDIT file
-
 .. glossary::
    :sorted:
 
@@ -39,8 +37,8 @@ EDIT file
       number of input sources into a single manageable output.
 
    keyword
-      A string that you can use to identify a task item in a file that
-      contains other content. Taskfile's default configuration assumes
+      A string that you can use to identify a task item in a plain
+      text file. Taskfile's default configuration assumes
       that keywords are strings of all-capital letters at the
       beginning of a line.
 

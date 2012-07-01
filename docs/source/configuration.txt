@@ -2,22 +2,18 @@
 Setup and Configuration
 =======================
 
-EDIT file
-
 .. default-domain:: make
 
 This document addresses basic setup and configuration of Taskfile. For
 more in-depth information on using taskfile for day-to-day see
-":doc:`internals`" for an overview of every component in the operation
-of Taskfile.
+":doc:`internals`" for descriptions of all components within Taskfile.
 
 Installing
 ----------
 
 To install Taskfile:
 
-1. Clone the taskfile repository. Perhaps in your home directory
-   (i.e. "``~/``" or "``/home/username/``") For example:
+1. Clone the taskfile repository. For example:
 
    .. code-block:: sh
 
@@ -39,10 +35,9 @@ To install Taskfile:
 
       cp taskfile/taskfile.proejct ~/projects/makefile
 
-Congratulations! You have now installed Taskfile. Unfortunately, this
-is the easier part of getting started with Taskfile. Continue reading
-this document, and consult ":doc:`internals`" for more about
-configuring your own Taskfile system.
+Congratulations! You have now installed Taskfile. Continue reading,
+and consult ":doc:`internals`" for more information regarding your
+Taskfile system.
 
 .. [#projects] Because Taskfile recurses into all sub-directories, you
    can place the makefile anywhere, as long as you have tasks below
@@ -55,25 +50,25 @@ configuring your own Taskfile system.
 Configuration
 -------------
 
-In truth, the default configuration is largely sufficient for most
-basic uses: if all the project files you use are in a single folder,
-and you do not need to generate multiple lists, you may only have to
-modify the following variables at the beginning of the makefile, which
-control the input and output of the make system:
+The default configuration is sufficient for most basic uses: if all
+the project files you use are in a single folder, and you do not need
+to generate multiple lists, you may only have to modify the following
+variables at the beginning of the makefile, which control the input
+and output of the taskfile build system:
 
 - :var:`EXTENSION`,
 - :var:`SOURCE`,
 
 Including whitespace and comments, the makefile is under 200 lines,
 and only 20-30 lines, or so, are relevant to the operation of
-Taskfile, and you can find complete documentation of all taskfile
-elements on the :doc:`internals <internals>` page.
+Taskfile. Complete documentation of all taskfile elements is in the
+:doc:`internals <internals>` page.
 
 Customizing
 ~~~~~~~~~~~
 
-There are many possible customizations. In general there are two
-classes of customization that makes sense with Taskfile:
+There are many possible customizations. However, there are two major
+classes of customization for Taskfile systems:
 
 #. Creating different aggregation selections and outputs, to separate
    work domains that don't share any contextual overlap.

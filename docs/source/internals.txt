@@ -2,12 +2,10 @@
 Taskfile Internals
 ==================
 
-EDIT file
-
 .. default-domain:: make
 
-This document provides a detailed account of the internal operation of
-the Taskfile makefile. Use this document as a reference to the higher
+This document describes the internal operation and components of the
+Taskfile makefile. Use this document as a reference in support of the higher
 level discussion of :doc:`Taskfile customization <configuration>`.
 
 .. _taskfile-variables:
@@ -18,7 +16,7 @@ Variables
 .. variable:: MAKEFLAGS
 
    Defines the default flags for :command:`make`. For Taskfile, this
-   is "``-j4``"
+   is "``-j4``" but you can use more or less depending on your system.
 
 Location and Output Variables
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -32,18 +30,18 @@ Location and Output Variables
 
 .. variable:: CACHE
 
-   The directory where Taskfile stores it's cached extraction of task
+   The directory where Taskfile stores the cached extraction of task
    items from the ``SOURCE`` files. Ensure that the Taskfile cache is
-   not tracked in version control. For example, consider using
-   "``.git/taskfile-cache``" otherwise place the :var:`CACHE` path in
-   your ``.gitignore``, or other similar exclusion file.
+   not tracked in version control. Consider using
+   "``.git/taskfile-cache``" or place the :var:`CACHE` path in your
+   ``.gitignore`` or other similar exclusion file.
 
 .. variable:: OUTPUT_FILE_NAME
 
    Typically this is "``todo``" and represents the name of the file
    where Taskfile writes it output.
 
-   The value of this variable does not include the file extension.
+   This variable does not include the file extension.
 
 .. variable:: EXTENSION
 
@@ -67,12 +65,12 @@ Location and Output Variables
 .. variable:: EXTRA_OUTPUT_DIR
 
    The default value for this variable is
-   ``$(SOURCE)/$(OUTPUT_FILENANE)``, and unless you set a value to
-   this variable it will be overridden with this value.
+   ``$(SOURCE)/$(OUTPUT_FILENANE)``, although you can override this
+   value.
 
 .. variable:: PROJECTS_OUTPUT
 
-   Defines a target to build for a projects specific.
+   Defines a target to build for project specific output.
 
    Typically a distinct makefile (e.g. a separate Taskfile instance)
    builds these projects specific lists. This and
@@ -81,17 +79,17 @@ Location and Output Variables
 
 .. variable:: PROJECTS_MAKECONTEXT
 
-   The path to a "projects" taksfile's directory context. Called as "``make -C
-   $(PROJECTS_MAKECONTEXT)``". This line is, however, commented out in
-   the distributed version of taskfile.
+   The path to a "projects" taksfile's directory context. Called as
+   "``make -C $(PROJECTS_MAKECONTEXT)``". This line is, however,
+   commented out in the distributed version of taskfile.
 
 Patterns and Filters
 ~~~~~~~~~~~~~~~~~~~~
 
 .. variable:: KEYWORDS
 
-   Defines the search pattern for a ``grep`` command that will find
-   the items that Taskfile aggregates as "task items." Taskfile calls
+   Defines the search pattern for a ``grep`` command that finds
+   the items Taskfile aggregates as "task items." Taskfile calls
    this grep in the following form, with the :var:`KEYWORDS` variable:
 
    .. code-block:: sh
@@ -104,17 +102,16 @@ Patterns and Filters
 
       ^TODO|^DEV|^FIXME|^WRITE|^EDIT|^FUTURE|^FROZEN|WORK
 
-   Feel free to modify the expression as needed for your cases.
+   Modify the expression as needed.
 
    .. note::
 
-      Taskfile sorts the output of grep when making the Task list,
+      Taskfile sorts the output of grep when making the task list,
       which may impact how your organize your Taskfile
-      query. Additionally, in most cases, regular expressions that
-      anchor the search pattern (i.e. "``^``" for the beginning of the
-      line, or "``$``" for the end of the line,) increases the
-      performance of most regular expression searches, depending on
-      the structure of your search content.
+      query. Furthermore, regular expressions that anchor the search
+      pattern (i.e. "``^``" for the beginning of the line, or "``$``"
+      for the end of the line,) often show better performance,
+      depending on the structure of your search content.
 
 .. variable:: FUTURE_FILTER
 
@@ -141,7 +138,7 @@ Patterns and Filters
       customization. See the ":doc:`configuration`" document for more
       information on this process.
 
-      However, task items that use one of these keywords are not
+      However, items that use one of these keywords are not
       included in the primary tasklist.
 
 .. variable:: WORK_FILTER
@@ -163,9 +160,8 @@ Patterns and Filters
 
    .. seealso:: :target:`$(WORK_OUTPUT)`
 
-      Additionally, consider the ":doc:`configuration`" document for
-      instructions regarding configuring the work tasklists.
-
+      Consider the ":doc:`configuration`" document for instructions
+      regarding configuring the work tasklists.
 
 Project Variables
 ~~~~~~~~~~~~~~~~~
@@ -237,10 +233,10 @@ Project Variables
 .. variable:: EXTRA_OUTPUT_DIR
 
    Defines a directory within the :var:`SOURCE` directory that holds.
-   various other outputs and dependent. The :target:`$(FUTURE_OUTPUT)`
-   builds into this directory, and a number of "template" files are in
-   this directory. The :var:`SOURCES` does not include items from this
-   directory.
+   additional outputs and dependent files. The
+   :target:`$(FUTURE_OUTPUT)` builds into this directory, and a number
+   of "template" files are in this directory. The :var:`SOURCES` does
+   not include items from this directory.
 
    In the default configuration :var:`EXTRA_OUTPUT_DIR` has the
    following value:
@@ -265,7 +261,7 @@ Project Variables
 Default Variables
 ~~~~~~~~~~~~~~~~~
 
-Taskfile will supply a default values for the following values, which
+Taskfile supplies default values for the following values that
 are necessary for Taskfile operation, if you do not define custom
 values at the beginning of the file.
 
@@ -366,7 +362,8 @@ tasklist.
 
    .. todo::
 
-      Simplify this function by testing alternates to the ``wildcard`` expression.
+      Simplify this function by testing alternates to the ``wildcard``
+      expression.
 
 .. variable:: CLEAN_UP_DELETED_FILES
 
@@ -409,9 +406,9 @@ Targets
 User Interface
 ~~~~~~~~~~~~~~
 
-These targets provide interface and output for Taskfile. While these
-targets themselves do not write data to the cache or output, some
-have dependencies that may trigger various rebuilds.
+These targets provide an interface and outputs for Taskfile. While
+these targets do not write data to the cache or output, some have
+dependencies that may trigger a rebuild.
 
 .. target:: help
 
@@ -451,7 +448,7 @@ Meta Targets
 ~~~~~~~~~~~~
 
 These targets provide dependency groupings for task list to support
-basic operation and configuration, but do not build
+basic operation and configuration, but do not build output directly.
 
 .. target:: all
 
@@ -468,7 +465,7 @@ basic operation and configuration, but do not build
       - :target:`$(CACHE)/$(OUTPUT_FILE_NAME).list`
       - :target:`$(OUTPUT)`
 
-      The default distribution disables the following dependencies:
+      The following dependencies are not enabled by default:
 
       - :target:`$(FUTURE_OUTPUT)`
       - :target:`$(WORK_OUTPUT)`
@@ -488,9 +485,9 @@ core output list.
 
 .. target:: $(CACHE)/.setup
 
-   This is a simple configuration target that creates all of the
-   required cache directories, and touches several template files that
-   makes it possible to build the Tasklists without error.
+   This simple configuration target creates all required cache
+   directories, and touches several template files that makes it
+   possible to build the Tasklists without error.
 
    The target creates the following directories:
 
@@ -504,26 +501,26 @@ core output list.
 
    And creates empty files (with the ``touch`` utility:)
 
-   - ``$(EXTRA_OUTPUT_DIR)/tmpl.$(WORK_FILTER)``
+   .. describe:: $(EXTRA_OUTPUT_DIR)/tmpl.$(WORK_FILTER)
 
-     Ensures that the "tmpl" file for the work-output exists. Taskfile
-     interest the contents of this file into the beginning of the
-     work-output file before the task items. Taskfile does not
-     generate work-output unless you edit the Makefile to uncomment
-     the relevant targets.
+      Ensures that the "tmpl" file for the work-output
+      exists. Taskfile inserts the contents of this file into the
+      beginning of the work-output file before the task
+      items. Taskfile does not generate work-output unless you edit
+      the Makefile to uncomment the relevant targets.
 
-   - ``$(EXTRA_OUTPUT_DIR)/tmpl.$(FUTURE_FILTER)``
+   .. describe:: $(EXTRA_OUTPUT_DIR)/tmpl.$(FUTURE_FILTER)
 
-     Ensures that the "tmpl" file for the future-output exists. Taskfile
-     interest the contents of this file into the beginning of the
-     future-output file before the task items. Taskfile does not
-     generate future-output unless you edit the Makefile to uncomment
-     the relevant targets.
+      Ensures that the "tmpl" file for the future-output
+      exists. Taskfile interest the contents of this file into the
+      beginning of the future-output file before the task
+      items. Taskfile does not generate future-output unless you edit
+      the Makefile to uncomment the relevant targets.
 
-   - ``$(CACHE)/.setup``
+   .. describe:: $(CACHE)/.setup
 
-     Taskfile creates this folder to satisfy the dependency checking
-     for the :target:`setup` target.
+      Taskfile creates this folder to satisfy the dependency checking
+      for the :target:`setup` target.
 
    The build target is just an empty placeholder file.
 
@@ -545,11 +542,10 @@ core output list.
    :var:`EXTENSION`, and that all files in the cache have a distinct
    extension.
 
+   .. note::
 
-   ... note::
-
-       This target suppresses normal output and instead prints
-       "``Caching:`` :var:`$(CACHE)/.$(EXTENSION) <CACHE>`".
+      This target suppresses normal output and instead prints
+      "``Caching:`` :var:`$(CACHE)/.$(EXTENSION) <CACHE>`".
 
 .. target:: $(CACHE)/$(OUTPUT_FILENAME).list
 
@@ -598,9 +594,8 @@ advanced aggregation features.
    This target builds the file described by the variable
    :var:`FUTURE_OUTPUT`. It depends on the :target:`$(OUTPUT)` target.
 
-   Procedurally, this target is very similar to the
-   :target:`$(OUTPUT)` :target:`$(FUTURE_OUTPUT)` targets and has the
-   following components:
+   Procedurally, this target is similar to the :target:`$(OUTPUT)`
+   target.  :target:`$(FUTURE_OUTPUT)` has the following components:
 
    - Copies the content of ``$(EXTRA_OUTPUT_DIR)/tmpl.$(FUTURE_FILTER)``
      into the new :var:`FUTURE_OUTPUT` file. This provides any header
@@ -624,13 +619,12 @@ advanced aggregation features.
    This target builds the file described by the variable
    :var:`WORK_OUTPUT`. It depends on the :target:`$(OUTPUT)` target.
 
-   Procedurally, this target is very similar to the
-   :target:`$(OUTPUT)` and :target:`$(FUTURE_OUTPUT)` targets and has
-   the following components:
+   Procedurally, this target is similar to the :target:`$(OUTPUT)` and
+   :target:`$(FUTURE_OUTPUT)` targets and has the following
+   components:
 
    - Copies the content of ``$(EXTRA_OUTPUT_DIR)/tmpl.$(WORK_FILTER)``
-     into the new :var:`WORK_OUTPUT` file. This provides any header
-     material.
+     into the new :var:`WORK_OUTPUT` file. This provides header data.
 
    - Selects all of the lines that match :var:`WORK_KEYWORDS` in the
      file built by the target :target:`$(CACHE)/$(OUTPUT_FILE_NAME).list`.
@@ -657,7 +651,7 @@ Cleaning Aggregation
 ~~~~~~~~~~~~~~~~~~~~
 
 These targets are useful for forcing Taskfile to delete certain files
-that have grown stale or that you would like to generate during the
+that have grown stale or that you would like to regenerate during the
 next build.
 
 .. target:: clean
@@ -733,5 +727,5 @@ Dependencies
 
    Used by the :target:`$(CACHE)/%.$(OUTPUT_FILENAME)`.
 
-   This provides a matching dependency for all the files specified by
-   the :var:`SOURCES` variable.
+   :dep:`$(SOURCE)/%.$(EXTENSION)` provides a matching dependency for
+   all the files specified by the :var:`SOURCES` variable.

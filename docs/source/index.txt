@@ -2,9 +2,9 @@
 Taskfile: A Tasklist Compiler
 =============================
 
-A simple tasklist aggregator build using GNU Make and text files to
-support task tracking for a diverse collection of workflows and
-tools.
+Taskfile is aggregates task information from text files using GNU
+Make. Taskfile supports task tracking for a diverse collection of
+workflows and tools.
 
 Contents
 --------
@@ -40,9 +40,10 @@ the approach is exceedingly simple, there are a number of practical
 advantages that this approach provides:
 
 - Task planning can transpire in-parallel with actual work on code or
-  writing, without needing to switch to a task management system.
+  writing, without needing to switch to a task management systems.
 
-- Complete interoperation with a host of existing systems, including:
+- Complete interoperation with number of existing tools and systems,
+  including:
 
   - Ikiwki
   - Sphinx
@@ -52,14 +53,14 @@ advantages that this approach provides:
   - Pretty much anything else you want.
 
 - Using GNU Make, makes it possible for the aggregation operation to
-  be *very* efficient and robust, so you can use it against a large
-  collections of files quite efficiently.
+  be *very* efficient and robust, so you can use it against large
+  collections of files.
 
-- From an implementation perspective Taskfile is nearly
-  trivial. Dozens of make/shell lines do everything that you need, so
-  it's easy to improve, extend, and tweak how the system works.
+- The implementation of Taskfile is nearly trivial. Dozens of
+  make/shell lines do everything that you need, so it's easy to
+  improve, extend, and tweak how the system works.
 
 In truth this "project," if I may be so bold, is more about the text
 and documentation that surrounds the code than the other way
-around. Thus, consider this document a primmer on creating your own
-taskfile system.
+around. Thus, consider this documentation set a primmer on creating
+your own Taskfile-based system.

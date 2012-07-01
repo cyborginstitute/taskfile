@@ -2,8 +2,6 @@
 Integrating Taskfile with Emacs
 ===============================
 
-EDIT file
-
 .. default-domain:: emacs
 
 This document provides an overview of the :file:`taskfile.el` included
@@ -43,15 +41,15 @@ Functions
    prefixed by the string "``DONE``". For example, the
    :func:`taskfile-mark-done` takes following task:
 
-   .. code-block:: rst
+   .. code-block:: none
 
-        TODO work on Taskfile Project
+      TODO work on Taskfile Project
 
    and transforms it into:
 
-   .. code-block:: rst
+   .. code-block:: none
 
-        - DONE work on Taskfile Project
+      - DONE work on Taskfile Project
 
 .. function:: taskfile-open
 
@@ -174,6 +172,7 @@ Occur Customizations
 
 At the end of :file:`taskfile.el` there are a number of modifications
 to occur culled from the `Emacs Wiki Occur Page`_ that may make occur
-more easy for you to use.
+more easy for you to use. You may choose to omit these customizations
+if they conflict or disrupt your current workflow.
 
 .. _`Emacs Wiki Occur Page`: http://www.emacswiki.org/emacs/OccurMode
