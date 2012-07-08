@@ -28,6 +28,12 @@ Resources
 - `taskfile on Github <https://github.com/tychoish/taskfile/>`_
 - `taskfile issue tracker <http://issues.cyborginstitute.net/>`_
 
+The latest version of this manual is also available for download in
+ePub and PDF formats:
+
+- `Taskfile Manual, ePub </projects/taskfile/taskfile.epub>`_
+- `Taskfile Manual, PDF </projects/taskfile/taskfile.pdf>`_
+
 Overview
 --------
 
