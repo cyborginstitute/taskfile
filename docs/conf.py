@@ -34,23 +34,31 @@ html_theme_path = ['themes']
 html_title = 'Taskfile, a Tasklist Compiler'
 html_short_title = 'Taskfile'
 
+git_name = 'taskfile'
+
+html_theme = 'cyborg'
+html_theme_path = ['themes']
+
+html_use_smartypants = True
+html_theme_options = { 
+    'project': git_name, 
+    'ga_code': 'UA-2505694-4'
+}
+
+html_sidebars = {
+    '**': ['localtoc.html', 'relations.html', 'sourcelink.html'],
+}
+
 #html_logo = None
 #html_favicon = None
 
-git_name = 'taskfile'
-html_theme_options = { 'project': git_name }
+html_use_index = True
+html_show_sourcelink = False
+html_show_sphinx = False
+html_show_copyright = True
 
 html_static_path = ['source/.static']
 html_use_smartypants = True
-
-# If false, no module index is generated.
-#html_domain_indices = True
-# If false, no index is generated.
-html_use_index = True
-html_split_index = False
-html_show_sourcelink = True
-html_show_sphinx = False
-html_show_copyright = True
 
 htmlhelp_basename = 'cyborg-institute'
 

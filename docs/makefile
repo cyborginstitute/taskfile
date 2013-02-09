@@ -1,6 +1,6 @@
 #
 # Publication system
-# 
+#
 
 include makefile.docs
 
@@ -16,5 +16,6 @@ $(BUILDDIR)/publish/taskfile.epub:$(BUILDDIR)/epub/TaskfileATasklistCompiler.epu
 $(BUILDDIR)/publish:$(BUILDDIR)/dirhtml
 	mkdir -p $@
 	cp -R $</* $@
+	touch $@
 $(BUILDDIR)/publish/taskfile.pdf:$(BUILDDIR)/latex/taskfile.pdf
 	cp $< $@
